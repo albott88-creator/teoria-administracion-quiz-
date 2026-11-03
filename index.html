@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teoría de la Administración - Quiz Evaluativo</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Teacher toggle dot (invisible trigger) -->
+    <div class="teacher-dot" id="teacherDot"></div>
+
+    <!-- Intro Screen -->
+    <section class="screen intro-screen" id="introScreen">
+      <header class="app-header">
+        <h1><span class="icon-book"> </span>Teoría de la Administración</h1>
+        <p class="course-info">3 carreras ULVR</p>
+      </header>
+
+      <main class="intro-content">
+        <div class="case-display" id="caseDisplay">
+          <h2>Caso sorteado: <span id="caseName"></span></h2>
+          <div class="case-text" id="caseText"></div>
+        </div>
+
+        <form class="student-form">
+          <div class="form-group">
+            <label for="studentName">Nombre completo</label>
+            <input type="text" id="studentName" required>
+          </div>
+          <div class="form-group">
+            <label for="career">Carrera</label>
+            <select id="career" required>
+              <option value="">Seleccionar carrera</option>
+              <option value="Comercio Exterior">Teoría de la Administración (Comercio Exterior)</option>
+              <option value="Contabilidad">Teoría de la Administración (Contabilidad)</option>
+              <option value="Marketing">Teoría de la Administración (Marketing)</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-start">Comenzar evaluación</button>
+        </form>
+
+        <div class="quiz-info" id="quizInfo" style="display:none;">
+          <p>Caso actual: <span id="currentCaseLabel"></span></p>
+          <p>Pregunta <span id="questionNumber">1</span> de <span id="totalQuestions">15</span></p>
+        </div>
+      </main>
+    </section>
+
+    <!-- Quiz Screen -->
+    <section class="screen quiz-screen" id="quizScreen">
+      <header class="app-header">
+        <h2><span class="icon-chalkboard"> </span>Pregunta <span id="questionIndex">1</span> de 15</h2>
+        <div class="timer" id="timer">30</div>
+      </header>
+
+      <main class="quiz-main">
+        <div class="question-text" id="questionText"></div>
+
+        <div class="options-container" id="optionsContainer"></div>
+
+        <div class="navigation">
+          <button class="btn-nav prev" id="prevBtn" disabled>Anterior</button>
+          <button class="btn-nav next" id="nextBtn">Siguiente</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- Result Screen -->
+    <section class="screen result-screen" id="resultScreen">
+      <header class="app-header">
+        <h2><span class="icon-trophy"> </span>Resultado</h2>
+      </header>
+
+      <main class="result-main">
+        <div class="score-circle" id="scoreCircle">
+          <svg viewBox="0 0 220 220">
+            <circle class="track" cx="110" cy="110" r="100" fill="#f4f1ea"/>
+            <circle class="fill" cx="110" cy="110" r="100" fill="#4a3a35" stroke="#4a3a35" stroke-width="4"/>
+            <text class="score-value" x="110" y="125" text-anchor="middle" fill="#ffffff" font-family="Outfit, sans-serif" font-size="48" font-weight="900" id="scoreValue">0</text>
+          </svg>
+          <p>Puntuación sobre 10</p>
+        </div>
+
+        <p class="feedback" id="feedback"></p>
+
+        <div class="score-details">
+          <p>Correctas: <span id="correctCount">0</span> / 15</p>
+          <p>Incorrectas: <span id="incorrectCount">0</span> / 15</p>
+        </div>
+
+        <button class="btn-export" id="exportBtn">⬇ Exportar CSV</button>
+        <button class="btn-restart" id="restartBtn">Realizar nuevo intento</button>
+      </main>
+    </section>
+
+    <!-- Teacher Panel -->
+    <section class="teacher-panel" id="teacherPanel" style="display:none;">
+      <div class="panel-header">
+        <h3>Panel Docente</h3>
+        <span class="close-panel">&times;</span>
+      </div>
+      <p class="panel-instruction">Ingrese el código: <strong>DOCENTE2026</strong></p>
+      <form class="teacher-form">
+        <input type="password" id="teacherCode" placeholder="Código de acceso" required>
+        <button type="submit" class="btn-submit">Acceder</button>
+      </form>
+
+      <div class="panel-content" id="panelContent">
+        <div class="toggle-section">
+          <button class="toggle-btn" id="toggleBtn">Cerrar quiz</button>
+          <p class="toggle-desc">El quiz está <span id="toggleStatus">abierto</span> para los estudiantes</p>
+        </div>
+
+        <h4>Ver resultados de los estudiantes</h4>
+        <div class="teacher-table-wrap" id="teacherTableWrap">
+          <p>Cargando resultados...</p>
+        </div>
+
+        <button class="btn-clear-all" id="clearAllBtn" style="display:none;">Borrar todos los registros</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

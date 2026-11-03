@@ -1,0 +1,606 @@
+/* ==========================================
+   TEORÍA DE LA ADMINISTRACIÓN - QUIZ EP
+   Paleta: Navy + Gold, Serif display + Inter body
+   ========================================== */
+
+/* Root variables */
+:root {
+  --navy: #2c3e50;
+  --gold: #d4a853;
+  --light-gold: #e8c56d;
+  --navy-light: #34495e;
+  --white: #f4f1ea;
+  --black: #2c1a0a;
+  --text-dark: #333333;
+  --success: #27ae60;
+  --error: #e74c3c;
+}
+
+/* Page transitions */
+* { box-sizing: border-transition: none; }
+
+/* ==========================================
+   BASE & LAYOUT
+   ========================================== */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--white);
+  color: var(--text-dark);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background: var(--navy);
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.app-header h1 {
+  font-family: 'Lora', serif;
+  font-size: 1.5rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.app-header h1 .icon-book {
+  font-size: 1.2rem;
+}
+
+.app-header h2 {
+  font-family: 'Lora', serif;
+  font-size: 1.2rem;
+  margin: 0;
+  color: var(--gold);
+}
+
+.app-header .course-info {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* Screens */
+.screen {
+  flex: 1;
+  display: none;
+  padding: 2rem 1.5rem;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* Intro screen specific */
+.intro-content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.case-display {
+  background: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 600px;
+  text-align: left;
+}
+
+.case-display h2 {
+  color: var(--navy);
+  margin: 0 0 0.5rem;
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+}
+
+.case-display .case-text {
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.btn-start {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+
+.btn-start:hover {
+  background: var(--light-gold);
+}
+
+/* Quiz screen specific */
+.quiz-info {
+  background: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 40px;
+  text-align: center;
+}
+
+.question-text {
+  margin: 2rem 0;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+.options-container {
+  display: gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.option {
+  background: var(--white);
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.option:hover {
+  border-color: var(--gold);
+  background: #fffdf0;
+}
+
+.option.selected {
+  border-color: var(--gold);
+  background: #fffdf0;
+}
+
+.option.correct {
+  border-color: var(--success);
+  background: #d5f5e3;
+}
+
+.option.incorrect {
+  border-color: var(--error);
+  background: #faeceb;
+}
+
+.option .option-letter {
+  position: absolute;
+  left: 1rem;
+  top: 1.2rem;
+  background: var(--navy);
+  color: var(--white);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 24px;
+  flex-shrink: 0;
+  alignment-baseline: central;
+  vertical-align: middle;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.btn-nav {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid var(--navy);
+  background: var(--white);
+  color: var(--navy);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.btn-nav:hover {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Result screen specific */
+.result-main {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.score-circle {
+  width: 180px;
+  margin: 0 auto 2rem;
+}
+
+.score-circle svg {
+  width: 100%;
+  height: 180px;
+}
+
+.score-circle .track {
+  fill: none;
+  stroke: var(--light-gold);
+  stroke-width: 15;
+  stroke-linecap: round;
+}
+
+.score-circle .fill {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 15;
+  stroke-linecap: round;
+  stroke-dasharray: 220;
+  stroke-dashoffset: 220;
+  transform: rotate(-90deg) translateY(10px);
+}
+
+.score-value {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+}
+
+/* Actually the score-value is inside the SVG, let's fix */
+.score-circle .score-value {
+  fill: var(--white);
+  font-size: 3rem;
+}
+
+.feedback {
+  margin: 1.5rem 0;
+  font-size: 1.1rem;
+  min-height: 3rem;
+}
+
+.score-details {
+  margin: 1.5rem 0;
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.score-details p {
+  margin: 0.5rem 0;
+}
+
+.export-btn,
+.restart-btn {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  transition: transform 0.1s;
+}
+
+.export-btn {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.export-btn:hover {
+  transform: scale(1.02);
+}
+
+.restart-btn {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.restart-btn:hover {
+  background: #1a252f;
+}
+
+/* Teacher panel */
+.teacher-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  max-height: 100vh;
+  background: var(--white);
+  border-left: 4px solid var(--gold);
+  z-index: 100;
+  transform: translateX(320px);
+  transition: transform 0.3s ease;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.15);
+}
+
+.teacher-panel.open {
+  transform: translateX(0);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--navy);
+}
+
+.panel-header .close-panel {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--navy);
+}
+
+.panel-content {
+  padding: 1.5rem;
+}
+
+.toggle-section {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.toggle-btn {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.toggle-desc {
+  margin-top: 0.5rem;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.teacher-form {
+  margin: 1.5rem 0;
+}
+
+.teacher-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.teacher-form button {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Teacher table */
+.teacher-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.teacher-table th,
+.teacher-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.teacher-table th {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.teacher-table tr:hover td {
+  background: #f0f0f0;
+}
+
+.btn-clear-all {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  background: #e74c3c;
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  z-index: 9999;
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .screen {
+    padding: 1rem;
+  }
+
+  .timer {
+    font-size: 0.75rem;
+  }
+
+  .option {
+    padding: 0.8rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .option .option-letter {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 0.65rem;
+    left: 0.5rem;
+    top: 1rem;
+  }
+
+  .navigation {
+    flex-direction: column;
+  }
+
+  .btn-nav {
+    width: 100%;
+  }
+
+  .btn-nav:first-child {
+    margin-bottom: 0.5rem;
+  }
+
+  .score-circle {
+    width: 150px;
+  }
+
+  .score-circle .score-value {
+    font-size: 2rem;
+  }
+
+  .teacher-panel {
+    width: 100%;
+    max-height: none;
+    border-left: none;
+    border-top: 4px solid var(--gold);
+    transform: translateY(0);
+  }
+
+  .teacher-panel.open {
+    transform: translateY(0);
+  }
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    transition-duration: 0s !important;
+  }
+}
